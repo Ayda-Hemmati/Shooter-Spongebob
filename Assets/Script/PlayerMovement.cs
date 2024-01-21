@@ -9,8 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxVelocityChange = 10f;
 
     public float sprintspeed = 14f;
-
-    private CharacterController controller;
+    
 
     [Space]
     public float jumpheight = 5f;
@@ -43,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         sprinting = Input.GetButton("Sprint");
 
         jumping = Input.GetButton("Jump");
-      
+
 
     }
 
