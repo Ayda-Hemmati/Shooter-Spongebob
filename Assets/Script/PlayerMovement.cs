@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float sprintspeed = 14f;
     
+   
 
     [Space]
     public float jumpheight = 5f;
@@ -28,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        
        
     }
 

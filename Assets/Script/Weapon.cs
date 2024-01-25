@@ -7,7 +7,9 @@ using TMPro;
 
 public class Weapon : MonoBehaviour
 {
-    
+    public AudioClip auc;
+    public AudioSource aus;
+
     public int damage ;
     public float FireRate;
     public Camera camera;
@@ -31,8 +33,8 @@ public class Weapon : MonoBehaviour
     public AnimationClip reload;
 
     [Header("Recoil Settings")]
-    [Range(0,1)]
-     public float recoilPercent = 0.3f;
+    //[Range(0,1)]
+    // public float recoilPercent = 0.3f;
 
     [Range(0,2)]
     public float recoverPercent = 0.7f;
@@ -66,16 +68,19 @@ public class Weapon : MonoBehaviour
         if(nextFire > 0)
         {
            nextFire -= Time.deltaTime;
+           
         
         }
-        if(Input.GetButton("Fire1") && nextFire<=0 && ammo > 0 && GetComponent<Animation>().isPlaying == false){
+        if(Input.GetButton("Fire1") && nextFire<=0 && ammo > 0 && animation.isPlaying == false){
+            MuzzleFlash.Play();
+          
             nextFire = 1 / FireRate;
-
+            
             ammo--;
 
             magText.text=mag.ToString();
             ammoText.text= ammo + "/" + magAmmo;
-
+             aus.PlayOneShot(auc);
             Fire();
         }
         
@@ -107,10 +112,13 @@ public class Weapon : MonoBehaviour
 
         recoiling = true;
         recovering = false;
+          
 
+       
         Ray ray = new Ray(camera.transform.position,camera.transform.forward);
 
-        MuzzleFlash.Play();
+        
+         
 
         RaycastHit hit;
 
@@ -118,7 +126,9 @@ public class Weapon : MonoBehaviour
             PhotonNetwork.Instantiate(hitVFX.name,hit.point,Quaternion.identity);
             if(hit.transform.gameObject.GetComponent<Health>()){
                 hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All,damage);
+                 
             }
+       
         }
     }
 
