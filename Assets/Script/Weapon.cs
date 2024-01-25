@@ -117,16 +117,16 @@ public class Weapon : MonoBehaviour
        
         Ray ray = new Ray(camera.transform.position,camera.transform.forward);
 
-        
-         
-
         RaycastHit hit;
 
-        if(Physics.Raycast(ray.origin, ray.direction, out hit, 100f)){
+        if(Physics.Raycast(ray.origin, ray.direction, out hit, 50f)){
+             
             PhotonNetwork.Instantiate(hitVFX.name,hit.point,Quaternion.identity);
             if(hit.transform.gameObject.GetComponent<Health>()){
                 hit.transform.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All,damage);
-                 
+            
+                
+               
             }
        
         }
@@ -149,4 +149,5 @@ public class Weapon : MonoBehaviour
         } 
         }
   }
+  
 
